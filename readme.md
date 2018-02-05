@@ -2,7 +2,7 @@
 
 ### Hello, this is the readme for my Sentenge Generator, named dSenGen.
 
-I have not included any files at the time of writing this, and the only thing that really exists is pseudocode.
+I have only defined the data type LangNode at this time, however I plan to add much more.
 
 In the future, this will be a language generator.
 
