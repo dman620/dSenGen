@@ -1,3 +1,6 @@
+#include <stdlib.h> //u_int8_t 8 bit unsigned int type
+
+
 /*
 Programmer: Derek Mandl (https://github.com/dman620)
 date created: Feb 05, 2018
@@ -36,25 +39,64 @@ grammar.  This will not be a problem, however, as long as it also has other path
 follow.  The program will be working with random numbers, so it has a random chance 
 to follow each path.  Thus, when generating a sentence, it has a chance to recurse,
 and it also has a chance to go to one of the two nonterminals there (dangerous/dynamic)
+
+An example of a nonproductive recursive grammar:
+<start> -> <end>
+<end> -> <start>
+as long as you avoid something like this, you'll be fine.
+<start> -> <end>
+<end> -> <start> | end
+is a productive grammar because there is a chance for <end> to go to a terminal symbol.
 */
+
+
+//the ammount of elements to extend an array by
+//see: void extendArray()
+#define EXTEND_SIZE 20;
+
 
 //this is the definition for the node class
 struct LangNode{
-  //I may implement a dynamic array in the future, but for now I will assume
-  //that a reasonable maximum for number of nodes that can be pointed from/to
-  //is 20
-
-  //list of nodes that point to this node:
-  struct LangNode* fromList[20];
-  //list of nodes that this node points to:
-  struct LangNode* toList[20];
-
-  //this stores the number of elements in the fromList[]
-  char numFrom;
-  //this stores the number of elements in the toList[]
-  char numTo;
+  //Dynamic array of LangNodes
+  struct NodeArray{
+    struct LangNode* nodes;
+    size_t size;
+    size_t used;
+  } NodeArray;
   
+
+  //dynamic array of nodes that point to this node:
+  struct NodeArray fromList;
+  //dynamic array of nodes that this node points to:
+  struct NodeArray toList;
+
   //this stores the name of the nonterminal symbol,
   //not including the < >
-  char* name[];
+  //and if toList is null, then this is the terminal symbol name
+  char* name;
 };
+
+ //////////////////DYNAMIC ARRAY FUNCTIONS///////////////////////////
+//call this to initialize the dynamic array/////////////////////////
+void initArray(struct NodeArray a, size_t initSize){
+  a.nodes = (struct LangNode*)malloc(initSize * sizeof(struct LangNode));
+  a.size = initSize;
+  a.used = 0;
+}
+//call this to insert an element into the array.  It will allocate
+//more memory if needed
+void insertNode(struct NodeArray a, struct LangNode element){
+  if(a.size == a.used){
+    a.size += EXTEND_SIZE;
+    a.nodes = realloc(a.nodes, a.size * sizeof(struct LangNode));
+  }
+  a.nodes[a.used] = element;
+  a.used++;
+}
+//call this to return memmory to the system.  DO NOT FORGET TO CALL THIS
+void deleteArray(struct NodeArray a){
+  free(a.nodes);
+  a.size = 0;
+  a.used = 0;
+}
+///////////////////////END DYNAMIC ARRAY FUNCTIONS/////////////////
