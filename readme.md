@@ -15,7 +15,7 @@ This project is written in, and will be completed in C language.
 \<Start\> -> \<NonTerminalName\> | terminalName"  
 \<NonTerminalName\> -> terminalName2
 
-Of course you may define as many Terminals and nonterminals as you wish.  The program should be able to handle any possible rule, including recursive rules.  Also you will be able to name the symbols whatever you want.  You will be able to start it with a symbol called <end> if you wish.
+Of course you may define as many Terminals and nonterminals as you wish.  The program should be able to handle any possible rule, including recursive rules.  Also you will be able to name the symbols whatever you want.  You will be able to start it with a symbol called \<end\> if you wish.
 
 More information is available in the .c file.
 
