@@ -12,8 +12,8 @@ The language tree is a structure that is made up of two dynamic arrays of langua
 This project is written in, and will be completed in C language.
 
 ##### The syntax of grammars accepted by the program shall be as follows:
-"<Start> -> <NonTerminalName> | terminalName"
-"<NonTerminalName> -> terminalName2"
+\<Start\> -> \<NonTerminalName\> | terminalName"
+\<NonTerminalName\> -> terminalName2
 
 Of course you may define as many Terminals and nonterminals as you wish.  The program should be able to handle any possible rule, including recursive rules.  Also you will be able to name the symbols whatever you want.  You will be able to start it with a symbol called <end> if you wish.
 
